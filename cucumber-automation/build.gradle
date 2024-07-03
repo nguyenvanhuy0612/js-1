@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.huy'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+    //include '**/TestCase1.class'
+
+    // Include only the specific test class
+    include 'org/huy/TestCase1.class'
+
+    // Enable console output
+    testLogging {
+        events "started", "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+
+    // Filter to include only the specific test method
+    filter {
+        includeTestsMatching 'org.huy.TestCase1.Test1'
+    }
+}
+
+application {
+    mainClassName = 'org.huy.Main'
+}
