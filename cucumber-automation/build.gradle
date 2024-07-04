@@ -30,7 +30,7 @@ test {
 
     // Filter to include only the specific test method
     filter {
-        includeTestsMatching 'org.huy.TestCase1.Test1'
+        includeTestsMatching 'org.huy.TestCase1.Test*'
     }
 }
 
