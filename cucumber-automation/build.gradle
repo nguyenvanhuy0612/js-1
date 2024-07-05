@@ -44,3 +44,25 @@ test {
 application {
     mainClassName = 'org.huy.Main'
 }
+
+// Define a new task for running Cucumber tests
+tasks.register('cucumberTest', JavaExec) {
+    group = 'verification'
+    description = 'Run Cucumber tests'
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'io.cucumber.core.cli.Main'
+    args = ['-g', 'org.huy.stepdefinitions', 'src/test/resources/features']
+
+    // Enable console output
+    standardOutput = System.out
+    errorOutput = System.err
+    setIgnoreExitValue(true)
+
+    // Set Cucumber publish quiet property
+    systemProperty 'cucumber.publish.quiet', 'true'
+}
+
+// Ensure cucumberTest task depends on testClasses
+tasks.named('cucumberTest').configure {
+    dependsOn(testClasses)
+}
