@@ -50,7 +50,7 @@ tasks.register('cucumberTest', JavaExec) {
     group = 'verification'
     description = 'Run Cucumber tests'
     classpath = sourceSets.test.runtimeClasspath
-    main = 'io.cucumber.core.cli.Main'
+    mainClass = 'io.cucumber.core.cli.Main'
     args = ['-g', 'org.huy.stepdefinitions', 'src/test/resources/features']
 
     // Enable console output
