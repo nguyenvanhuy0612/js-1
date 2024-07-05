@@ -11,7 +11,10 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.cucumber:cucumber-java:7.11.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.11.0'
+    testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'
 }
 
 test {
@@ -22,16 +25,19 @@ test {
     include 'org/huy/TestCase1.class'
     include 'org/huy/StandardTests.class'
     include 'org/huy/CalculatorTests.class'
+    include 'org/huy/*'
 
-    // Enable console output
+    // Enable console output: "started", "passed", "skipped", "failed"
     testLogging {
-        events "passed", "skipped", "failed" //"started"
+        events "passed", "skipped", "failed"
         showStandardStreams = true
     }
 
     // Filter to include only the specific test method
     filter {
         //includeTestsMatching 'org.huy.TestCase1.Test*'
+        //includeTestsMatching 'org.huy.*'
+        includeTestsMatching 'org.huy.RunCucumberTest'
     }
 }
 
