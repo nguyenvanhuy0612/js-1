@@ -39,6 +39,9 @@ test {
         //includeTestsMatching 'org.huy.*'
         includeTestsMatching 'org.huy.RunCucumberTest'
     }
+
+    // Set Cucumber publish quiet property
+    systemProperty 'cucumber.publish.quiet', 'true'
 }
 
 application {
@@ -66,3 +69,34 @@ tasks.register('cucumberTest', JavaExec) {
 tasks.named('cucumberTest').configure {
     dependsOn(testClasses)
 }
+
+// Create a new task to build a JAR file including all test classes and dependencies
+task cucumberTestJar(type: Jar) {
+    group = 'build'
+    description = 'Assembles a jar archive containing the test classes and dependencies'
+    archiveClassifier = 'cucumberTest'
+    from sourceSets.test.output
+
+    // Include dependencies
+    dependsOn configurations.testRuntimeClasspath
+    from {
+        configurations.testRuntimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    // Include feature files
+    from('src/test/resources/features') {
+        into 'features'
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': 'io.cucumber.core.cli.Main',
+                   'Class-Path': configurations.testRuntimeClasspath.files.collect { it.name }.join(' '),
+                   'Implementation-Title': project.name,
+                   'Implementation-Version': project.version,
+                   'Args': '-g org.huy.stepdefinitions features'
+    }
+}
+
+tasks.assemble.dependsOn cucumberTestJar
