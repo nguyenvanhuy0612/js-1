@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation 'io.cucumber:cucumber-java:7.11.0'
+    implementation 'org.apache.commons:commons-lang3:3.15.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
     testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.11.0'
     testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'
@@ -36,7 +37,7 @@ test {
     // Filter to include only the specific test method
     filter {
         //includeTestsMatching 'org.huy.TestCase1.Test*'
-        //includeTestsMatching 'org.huy.*'
+        includeTestsMatching 'org.huy.*'
         includeTestsMatching 'org.huy.RunCucumberTest'
     }
 
