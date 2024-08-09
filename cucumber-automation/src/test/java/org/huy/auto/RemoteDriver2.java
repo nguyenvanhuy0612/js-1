@@ -7,9 +7,15 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.function.Supplier;
 
-public interface RemoteDriver extends WebDriver, JavascriptExecutor {
-    RemoteWebDriver internalDriver();
-    boolean elementExists(By by);
+public interface RemoteDriver2 extends WebDriver, JavascriptExecutor {
+    default RemoteWebDriver internalDriver() {
+        return null;
+    }
+
+    default boolean elementExists(By by) {
+        return false;
+    }
+
     boolean elementExists(By by, double timeoutInSec);
     boolean waitFor(double timeoutInSec, Supplier<Boolean> condition);
     void clickElement(By by);

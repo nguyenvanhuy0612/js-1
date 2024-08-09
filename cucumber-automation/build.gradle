@@ -13,6 +13,9 @@ repositories {
 dependencies {
     implementation 'io.cucumber:cucumber-java:7.11.0'
     implementation 'org.apache.commons:commons-lang3:3.15.0'
+    implementation 'org.projectlombok:lombok:1.18.34'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.23.0'
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
     testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.11.0'
     testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'
@@ -26,7 +29,7 @@ test {
     include 'org/huy/TestCase1.class'
     include 'org/huy/StandardTests.class'
     include 'org/huy/CalculatorTests.class'
-    include 'org/huy/*'
+    include 'org/huy/**'
 
     // Enable console output: "started", "passed", "skipped", "failed"
     testLogging {
